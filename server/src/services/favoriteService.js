@@ -14,8 +14,8 @@ class FavoriteService {
     return favoriteItem;
   }
 
-  static async removeFromFavorite(cartId) {
-    const favoriteItem = await Favorite.findByPk(cartId);
+  static async removeFromFavorite(favoriteId) {
+    const favoriteItem = await Favorite.findByPk(favoriteId);
     if (!favoriteItem) {
       throw new Error('Товар в избранном не найден');
     }

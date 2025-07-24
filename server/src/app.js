@@ -2,8 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/authRouter');
-// const meetupRouter = require('./routes/meetupRouter');
+
 const designSocksRouter = require('./routes/designSocksRouter');
+const cartRouter = require('./routes/cartRouter');
+const favoriteRouter = require('./routes/favoriteRouter');
 
 const app = express();
 
@@ -13,8 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
-// app.use('/api/meetups', meetupRouter);
+
 app.use('/api/designsocks', designSocksRouter);
+app.use('/api/cart', cartRouter);
+app.use('/api/favorite', favoriteRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);

@@ -1,5 +1,5 @@
 const cookieConfig = require('../configs/cookieConfig');
-const AuthService = require('../servises/authService');
+const AuthService = require('../services/authService');
 const generateTokens = require('../utils/generateToken');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();

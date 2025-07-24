@@ -4,6 +4,12 @@ import axios from 'axios';
 import Layout from './components/pages/Layout';
 import WishListPage from './components/pages/WishListPage';
 import RegistrationPage from './components/pages/RegistrationPage';
+import SockGeneratorPage from './components/pages/SockGeneratorPage';
+import MainPage from './components/pages/MainPage';
+import AboutPage from './components/pages/AboutPage';
+import ErrorPage from './components/pages/ErrorPage';
+import LoginPage from './components/pages/LoginPage';
+import CartPage from './components/pages/CartPage';
 
 function App() {
   return (
@@ -16,6 +22,7 @@ function App() {
         <Route element={<ErrorPage />} />
         <Route element={<LoginPage />} />
         <Route element={<RegistrationPage />} />
+        <Route element={<SockGeneratorPage />} />
       </Route>
     </Routes>
   );

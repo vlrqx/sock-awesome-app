@@ -1,32 +1,30 @@
 const { Favorite, DesignSock } = require('../../db/models');
 
 class FavoriteService {
-  static async getUserFav(userId) {
-    const allFav = await Fav.findAll({
+  static async getUserFavorite(userId) {
+    const allFavorite = await Favorite.findAll({
       where: { userId },
-      include: [
-        { model: DesignSock, as: 'as' },
-      ],
+      include: [{ model: DesignSock, as: 'fav' }],
     });
-    return allFav;
+    return allFavorite;
   }
 
-  static async addToCart(userId, designSockId) {
-    const cartItem = await Cart.create({ userId, designSockId });
-    return cartItem;
+  static async addToFavorite(userId, designSockId) {
+    const favoriteItem = await Favorite.create({ userId, designSockId });
+    return favoriteItem;
   }
 
-  static async removeFromCart(cartId) {
-    const cartItem = await Cart.findByPk(cartId);
-    if (!cartItem) {
-      throw new Error('Товар в корзине не найден');
+  static async removeFromFavorite(cartId) {
+    const favoriteItem = await Favorite.findByPk(cartId);
+    if (!favoriteItem) {
+      throw new Error('Товар в избранном не найден');
     }
-    await cartItem.destroy();
+    await favoriteItem.destroy();
   }
 
-  static async clearCart(userId) {
-    await Cart.destroy({ where: { userId } });
+  static async clearFavorite(userId) {
+    await Favorite.destroy({ where: { userId } });
   }
 }
 
-module.exports = FavoriteService 
+module.exports = FavoriteService;

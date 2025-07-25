@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routest } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router';
 import axios from 'axios';
 import Layout from './components/pages/Layout';
 import WishListPage from './components/pages/WishListPage';
@@ -12,17 +12,68 @@ import LoginPage from './components/pages/LoginPage';
 import CartPage from './components/pages/CartPage';
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [accessToken, setAccessToken] = useState('');
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const signupHandler = (e, formData) => {
+    e.preventDefault();
+    axios
+      .post('/api/auth/signup', formData)
+      .then((res) => {
+        setUser(res.data.user);
+        setAccessToken(res.data.accessToken);
+      })
+      .catch(console.error);
+    navigate('/');
+  };
+
+  const signinHandler = (e, formData) => {
+    e.preventDefault();
+    axios
+      .post('/api/auth/signin', formData)
+      .then((res) => {
+        setUser(res.data.user);
+        setAccessToken(res.data.accessToken);
+      })
+      .catch(console.error);
+    navigate('/');
+  };
+
+  useEffect(() => {
+    axios
+      .get('/api/auth/refresh')
+      .then((res) => {
+        setUser(res.data.user);
+        setAccessToken(res.data.accessToken);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const logoutHandler = () => {
+    axios.delete('/api/auth/logout').then(() => setUser(null));
+    navigate('/');
+  };
+
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
+
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route element={<WishListPage />} />
-        <Route element={<MainPage />} />
-        <Route element={<AboutPage />} />
-        <Route element={<CartPage />} />
-        <Route element={<ErrorPage />} />
-        <Route element={<LoginPage />} />
-        <Route element={<RegistrationPage />} />
-        <Route element={<SockGeneratorPage />} />
+      <Route element={<Layout user={user} logoutHandler={logoutHandler} />}>
+        <Route path="/wishlist" element={<WishListPage />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="/signin" element={<LoginPage signinHandler={signinHandler} />} />
+        <Route
+          path="/signup"
+          element={<RegistrationPage signupHandler={signupHandler} />}
+        />
+        <Route path="socksconstructor" element={<SockGeneratorPage user={user} />} />
       </Route>
     </Routes>
   );

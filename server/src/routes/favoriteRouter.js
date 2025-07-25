@@ -7,4 +7,5 @@ router.post('/', FavoriteController.addToFavorite);
 router.delete('/item/:id', FavoriteController.removeFromFavorite);
 router.delete('/clear/:userId', FavoriteController.clearFavorite);
 
+
 module.exports = router;

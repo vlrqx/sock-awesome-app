@@ -75,7 +75,7 @@ function App() {
           path="/signup"
           element={<RegistrationPage signupHandler={signupHandler} />}
         />
-        <Route path="socksconstructor" element={<SockGeneratorPage user={user} />} />
+        <Route path="/socksconstructor" element={<SockGeneratorPage user={user} />} />
       </Route>
     </Routes>
   );

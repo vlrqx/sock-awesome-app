@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function Registration({ signupHandler }) {
   const [form, setForm] = useState({
@@ -11,6 +12,8 @@ export default function Registration({ signupHandler }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  const navigate = useNavigate();
 
   return (
     <div style={outer}>
@@ -65,7 +68,7 @@ export default function Registration({ signupHandler }) {
         </button>
         <div style={bottomText}>
           Уже есть аккаунт?{' '}
-          <a href="/login" style={loginLink}>
+          <a onClick={() => navigate('/signin')} style={loginLink}>
             Войти
           </a>
         </div>
@@ -130,4 +133,4 @@ const eyeBtn = {
   opacity: 0.7,
 };
 const bottomText = { marginTop: 12, textAlign: 'center', fontSize: 14, color: '#818181' };
-const loginLink = { color: '#AE5CFF', textDecoration: 'underline', marginLeft: 5 };
+const loginLink = { color: '#AE5CFF', textDecoration: 'underline', marginLeft: 5, cursor: 'pointer' };

@@ -33,7 +33,7 @@ class DesignsocksController {
 
   static async createDesign(req, res) {
     try {
-      const { design } = req.body;
+      const design = req.body;
       const createDesign = await DesignsocksService.createDesign(design);
       return res.json(createDesign);
     } catch (error) {

@@ -12,20 +12,36 @@ import LoginPage from './components/pages/LoginPage';
 import CartPage from './components/pages/CartPage';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-
   return (
-    <Routes>
-      <Route path="/wishlist" element={<WishListPage />} />
-      <Route path="/" element={<MainPage />} />
-      <Route element={<AboutPage />} />
-      <Route element={<CartPage />} />
-      <Route element={<ErrorPage />} />
-      <Route path="/signin" element={<LoginPage />} />
-      <Route path="/signup" element={<RegistrationPage />} />
-      <Route path="/socksconstructor" element={<SockGeneratorPage />} />
-    </Routes>
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/wishlist" element={<WishListPage />} />
+          <Route path="/" element={<MainPage />} />
+          <Route element={<AboutPage />} />
+          <Route element={<CartPage />} />
+          <Route element={<ErrorPage />} />
+          <Route path="/signin" element={<LoginPage />} />
+          <Route path="/signup" element={<RegistrationPage />} />
+          <Route path="/socksconstructor" element={<SockGeneratorPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

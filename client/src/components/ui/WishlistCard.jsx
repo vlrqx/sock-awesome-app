@@ -1,16 +1,18 @@
 import React from 'react';
 import './WishlistCard.css';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const WishlistCard = ({ item, onRemove, onAddToCart, userId, designSockId }) => {
+const WishlistCard = ({ item, onRemove, onAddToCart }) => {
   const { pattern, img, color } = item.fav || {};
+  const { userId, designSockId } = item;
 
-  console.log(userId)
   const handleRemove = (itemId) => {
     axios
       .delete(`/api/favorite/item/${itemId}`)
       .then(() => {
         onRemove(itemId);
+        toast.success('Товар удален из избранного');
       })
       .catch((error) => console.error('Ошибка удаления:', error));
   };
@@ -21,15 +23,30 @@ const WishlistCard = ({ item, onRemove, onAddToCart, userId, designSockId }) => 
         userId,
         designSockId,
       });
-      console.log('Отправляемый designSockId:', designSockId);
-      console.log('Отправляемый userId:', designSockId);
 
-      console.log('Товар добавлен в корзину:', response.data);
       if (onAddToCart) onAddToCart(designSockId);
+      toast.success('Товар успешно добавлен в корзину!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
       console.error('Ошибка при добавлении в корзину:', {
         status: error.response?.status,
         message: error.response?.data?.message || error.message,
+      });
+      toast.error('Не удалось добавить товар в корзину', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     }
   };

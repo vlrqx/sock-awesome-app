@@ -1,0 +1,100 @@
+.footer {
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 20px 0 10px; 
+  font-family: 'Arial', sans-serif;
+  line-height: 1.4; 
+  font-size: 14px; 
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-brand {
+  margin-bottom: 15px; 
+}
+
+.footer-title {
+  font-size: 20px; 
+  font-weight: bold;
+  margin-bottom: 8px; 
+  color: #000;
+}
+
+.footer-description {
+  font-size: 13px; 
+  max-width: 400px;
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; 
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 180px;
+}
+
+.column-title {
+  font-size: 16px; 
+  font-weight: bold;
+  margin-bottom: 12px; 
+  color: #000;
+  position: relative;
+  padding-bottom: 6px; 
+}
+
+.column-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 30px; 
+  height: 1px; 
+  background-color: #007bff;
+}
+
+.footer-links, .footer-contacts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li, .footer-contacts li {
+  margin-bottom: 8px; 
+}
+
+.footer-links a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 13px; 
+  cursor: pointer
+}
+
+.footer-social {
+  font-size: 13px; 
+}
+
+.footer-copyright {
+  text-align: center;
+  padding-top: 15px; 
+  margin-top: 20px; 
+  border-top: 1px solid #ddd;
+  font-size: 12px; 
+}
+
+@media (max-width: 768px) {
+  .footer-columns {
+    gap: 15px; 
+  }
+  
+  .footer-column {
+    margin-bottom: 15px; 
+  }
+}

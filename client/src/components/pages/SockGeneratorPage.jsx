@@ -184,7 +184,7 @@ export default function SockGeneratorPage({ user, wishproduct, setWishproduct })
       await axiosInstance.post('/api/designsocks/design', designSock);
       console.log(designSock);
       await axiosInstance.post('/api/designsocks/tofavorite', { userId, designSock });
-      setWishproduct([...wishproduct, {userId}]);
+      setWishproduct([...wishproduct, { userId, fav: designSock }]);
       toast('Сохранено в избранное!');
     } catch {
       toast('Ошибка при сохранении!');

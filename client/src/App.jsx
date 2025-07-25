@@ -12,6 +12,7 @@ import LoginPage from './components/pages/LoginPage';
 import CartPage from './components/pages/CartPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axiosInstance from './api/axiosInstance';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,23 +25,23 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        if (!userId) {
-          throw new Error("User ID is required");
-        }
-        const response = await axios(`/api/cart/${userId}`);
-        setCartItems(response.data.items);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCart();
-    // if (userId) fetchCart();
-  }, [userId]);
+  // useEffect(() => {
+  //   const fetchCart = async () => {
+  //     try {
+  //       if (!userId) {
+  //         throw new Error('User ID is required');
+  //       }
+  //       const response = await axios(`/api/cart/${userId}`);
+  //       setCartItems(response.data.items);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchCart();
+  //   // if (userId) fetchCart();
+  // }, [userId]);
 
   const updateQuantity = async (id, newQuantity) => {
     if (newQuantity < 1) return;
@@ -79,7 +80,8 @@ function App() {
     }
   };
 
-  const getTotalPrice = () => cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const getTotalPrice = () =>
+    cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const getTotalItems = () => cartItems.reduce((total, item) => total + item.quantity, 0);
 
@@ -117,6 +119,15 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      axiosInstance
+        .get(`/api/favorite/${user.id}`)
+        .then((response) => setWishproduct(response.data))
+        .catch((error) => console.error('Ошибка:', error));
+    }
+  }, [user]);
+
   const logoutHandler = () => {
     axios.delete('/api/auth/logout').then(() => setUser(null));
     navigate('/');
@@ -150,16 +161,21 @@ function App() {
         />
         <Route path="/" element={<MainPage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/cart" element={<CartPage
-            cartItems={cartItems}
-            loading={loading}
-            error={error}
-            updateQuantity={updateQuantity}
-            removeItem={removeItem}
-            handleCheckOut={handleCheckOut}
-            getTotalPrice={getTotalPrice}
-            getTotalItems={getTotalItems}
-          />} />
+        <Route
+          path="/cart"
+          element={
+            <CartPage
+              cartItems={cartItems}
+              loading={loading}
+              error={error}
+              updateQuantity={updateQuantity}
+              removeItem={removeItem}
+              handleCheckOut={handleCheckOut}
+              getTotalPrice={getTotalPrice}
+              getTotalItems={getTotalItems}
+            />
+          }
+        />
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/signin" element={<LoginPage signinHandler={signinHandler} />} />
         <Route
@@ -177,7 +193,7 @@ function App() {
           }
         />
       </Route>
-<Route path='*' element={<ErrorPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }

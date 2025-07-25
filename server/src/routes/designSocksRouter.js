@@ -9,5 +9,6 @@ designRouter.post(
 );
 designRouter.post('/tocart', verifyAccessToken, DesignsocksController.createDesingCart);
 designRouter.put('/favorite', verifyAccessToken, DesignsocksController.editDesign);
+designRouter.post('/design', verifyAccessToken, DesignsocksController.createDesign)
 
 module.exports = designRouter;

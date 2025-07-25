@@ -18,6 +18,7 @@ function App() {
   const [accessToken, setAccessToken] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [wishproduct, setWishproduct] = useState([]);
 
   const signupHandler = (e, formData) => {
     e.preventDefault();
@@ -64,8 +65,26 @@ function App() {
 
   return (
     <Routes>
-      <Route element={<Layout user={user} logoutHandler={logoutHandler} />}>
-        <Route path="/wishlist" element={<WishListPage />} />
+      <Route
+        element={
+          <Layout
+            user={user}
+            logoutHandler={logoutHandler}
+            wishproduct={wishproduct}
+            setWishproduct={setWishproduct}
+          />
+        }
+      >
+        <Route
+          path="/wishlist"
+          element={
+            <WishListPage
+              user={user}
+              wishproduct={wishproduct}
+              setWishproduct={setWishproduct}
+            />
+          }
+        />
         <Route path="/" element={<MainPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cart" element={<CartPage />} />
@@ -75,7 +94,16 @@ function App() {
           path="/signup"
           element={<RegistrationPage signupHandler={signupHandler} />}
         />
-        <Route path="/socksconstructor" element={<SockGeneratorPage user={user} />} />
+        <Route
+          path="/socksconstructor"
+          element={
+            <SockGeneratorPage
+              user={user}
+              setWishproduct={setWishproduct}
+              wishproduct={wishproduct}
+            />
+          }
+        />
       </Route>
     </Routes>
   );

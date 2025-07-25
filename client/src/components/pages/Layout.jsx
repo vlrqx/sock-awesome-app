@@ -3,12 +3,12 @@ import './Footer.css';
 import NavBar from '../ui/NavBar';
 import { Outlet, useNavigate } from 'react-router';
 
-export default function Layout({ user, logoutHandler }) {
+export default function Layout({ user, logoutHandler, wishproduct, setWishproduct }) {
   const navigate = useNavigate();
   return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <header>
-        <NavBar user={user} logoutHandler={logoutHandler} />
+        <NavBar user={user} logoutHandler={logoutHandler} wishproduct={wishproduct} setWishproduct={setWishproduct} />
       </header>
       <Outlet />
       <footer className="footer">
@@ -66,5 +66,5 @@ export default function Layout({ user, logoutHandler }) {
         </div>
       </footer>
     </div>
-  )
+  );
 }

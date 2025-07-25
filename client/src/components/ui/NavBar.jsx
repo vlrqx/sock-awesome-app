@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 
-export default function NavBar({ logoutHandler, user }) {
+export default function NavBar({ logoutHandler, user, wishproduct, setWishproduct }) {
   const navigate = useNavigate();
 
   return (
@@ -26,7 +26,7 @@ export default function NavBar({ logoutHandler, user }) {
       <div style={rightBlock}>
         <div style={iconBtn}>
           <span onClick={() => navigate('/wishlist')}>♡</span>
-          <span style={badge}>0</span>
+          <span style={badge}>{user ? wishproduct.length : 0}</span>
         </div>
         <div style={iconBtn}>
           <span onClick={() => navigate('/cart')}>🛒</span>

@@ -2,13 +2,14 @@ import React from 'react';
 import './WishlistCard.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import axiosInstance from '../../api/axiosInstance';
 
 const WishlistCard = ({ item, onRemove, onAddToCart }) => {
   const { pattern, img, color } = item.fav || {};
   const { userId, designSockId } = item;
 
   const handleRemove = (itemId) => {
-    axios
+    axiosInstance
       .delete(`/api/favorite/item/${itemId}`)
       .then(() => {
         onRemove(itemId);

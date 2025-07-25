@@ -1,11 +1,15 @@
 import React from 'react';
 import './Footer.css';
+import NavBar from '../ui/NavBar';
 import { Outlet, useNavigate } from 'react-router';
 
-export default function Layout() {
+export default function Layout({ user, logoutHandler }) {
   const navigate = useNavigate();
   return (
-    <>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <header>
+        <NavBar user={user} logoutHandler={logoutHandler} />
+      </header>
       <Outlet />
       <footer className="footer">
         <div className="footer-container">
@@ -61,6 +65,6 @@ export default function Layout() {
           <p>© 2025 SockCraft. Все права защищены.</p>
         </div>
       </footer>
-    </>
-  );
+    </div>
+  )
 }

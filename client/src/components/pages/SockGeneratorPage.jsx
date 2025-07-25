@@ -175,13 +175,14 @@ export default function SockGeneratorPage({ user, wishproduct, setWishproduct })
 
   const handleAddToFavorites = async () => {
     const designSock = {
-      color: colors.find((c) => c.value === selectedColor).name,
+      color: colors.find((c) => c.value === selectedColor).value,
       pattern: patterns.find((p) => p.value === selectedPattern).name,
       img: 'asfafasf',
     };
 
     try {
       await axiosInstance.post('/api/designsocks/design', designSock);
+      console.log(designSock);
       await axiosInstance.post('/api/designsocks/tofavorite', { userId, designSock });
       setWishproduct([...wishproduct, {userId}]);
       toast('Сохранено в избранное!');
@@ -192,7 +193,7 @@ export default function SockGeneratorPage({ user, wishproduct, setWishproduct })
 
   const handleAddToCart = async () => {
     const designSock = {
-      color: colors.find((c) => c.value === selectedColor).name,
+      color: colors.find((c) => c.value === selectedColor).value,
       pattern: patterns.find((p) => p.value === selectedPattern).name,
       img: 'asfasfasf',
     };

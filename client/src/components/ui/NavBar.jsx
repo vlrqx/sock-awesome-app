@@ -13,7 +13,10 @@ export default function NavBar({ logoutHandler, user, wishproduct, setWishproduc
         </span>
       </div>
       <div style={centerBlock}>
-        <a onClick={() => navigate('/socksconstructor')} style={linkStyle}>
+        <a
+          onClick={() => navigate(user ? '/socksconstructor' : '/signin')}
+          style={linkStyle}
+        >
           Создать носки
         </a>
         <a onClick={() => navigate('/about')} style={linkStyle}>

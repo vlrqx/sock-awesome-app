@@ -30,6 +30,16 @@ class DesignsocksController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  static async createDesign(req, res) {
+    try {
+      const design = req.body;
+      const createDesign = await DesignsocksService.createDesign(design);
+      return res.json(createDesign);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = DesignsocksController;

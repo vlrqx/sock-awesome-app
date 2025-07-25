@@ -14,11 +14,12 @@ class CartController {
 
   static async addToCart(req, res) {
     try {
-      const { userId, designSock } = req.body;
-      if (!userId || !designSock) {
+      const { userId, designSockId } = req.body;
+      console.log(userId, designSockId)
+      if (!userId || !designSockId) {
         return res.status(400).json({ message: 'Требуется userId и designSock' });
       }
-      const newCartItem = await cartService.addToCart(userId, designSock);
+      const newCartItem = await cartService.addToCart(userId, designSockId);
       res.status(201).json({ newCartItem });
     } catch (error) {
       res.status(500).json({ message: error.message });

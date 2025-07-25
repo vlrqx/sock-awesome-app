@@ -9,7 +9,7 @@ class AuthService {
 
     const hashpass = await bcrypt.hash(password, 10);
 
-    const user = await User.create({ email, name, password: hashpass });
+    const user = await User.create({ email, name, hashpass });
 
     if (!user) {
       throw new Error('Не смог создать артиста');
@@ -32,7 +32,7 @@ class AuthService {
       throw new Error('Такого пользователя нет');
     }
 
-    const userDBPass = user.password;
+    const userDBPass = user.hashpass;
 
     const isValid = await bcrypt.compare(password, userDBPass);
 
@@ -41,7 +41,7 @@ class AuthService {
     }
 
     const plainUser = user.get();
-    delete plainUser.password;
+    delete plainUser.hashpass;
 
     return plainUser;
   }

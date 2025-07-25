@@ -10,8 +10,6 @@ import AboutPage from './components/pages/AboutPage';
 import ErrorPage from './components/pages/ErrorPage';
 import LoginPage from './components/pages/LoginPage';
 import CartPage from './components/pages/CartPage';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

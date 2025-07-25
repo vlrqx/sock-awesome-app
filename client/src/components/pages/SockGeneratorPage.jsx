@@ -129,7 +129,7 @@ function SockSVG({ selectedColor, selectedPattern, uploadedImage }) {
   );
 }
 
-export default function SockGeneratorPage({ user }) {
+export default function SockGeneratorPage({ user, wishproduct, setWishproduct }) {
   const [selectedColor, setSelectedColor] = useState(colors[0].value);
   const [selectedPattern, setSelectedPattern] = useState(patterns[5].value);
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -183,6 +183,7 @@ export default function SockGeneratorPage({ user }) {
     try {
       await axiosInstance.post('/api/designsocks/design', designSock);
       await axiosInstance.post('/api/designsocks/tofavorite', { userId, designSock });
+      setWishproduct([...wishproduct, {userId}]);
       toast('Сохранено в избранное!');
     } catch {
       toast('Ошибка при сохранении!');

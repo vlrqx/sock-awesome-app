@@ -3,12 +3,10 @@ import axios from 'axios';
 import './WishlistPage.css';
 import WishlistCard from '../ui/WishlistCard';
 
-export default function WishlistPage() {
-  const [wishproduct, setWishproduct] = useState([]);
-
+export default function WishlistPage({user, wishproduct, setWishproduct}) {
   useEffect(() => {
     axios
-      .get('/api/favorite/2')
+      .get(`/api/favorite/${user.id}`)
       .then((response) => setWishproduct(response.data))
       .catch((error) => console.error('Ошибка:', error));
   }, []);
